@@ -10,14 +10,13 @@ mainly utilizing the Wolverine and Marten libraries.
 Projects
 
 NetOb:
-NetOb api is used to create network objects like light poles, transformators, cable sections etc.
-It can only create or retrieve data, it can not delete or modify in any means, nor append events that would modify the state.
+NetOb api is used to create network objects like poles, transformators, cable sections etc.
 It might seed the database with initial data.
 
 NetInspectR:
 Runs a background service that will cyclically generate network inspection jobs.
 The business rule is, that every 6 minutes there will be a small and a large network inspection for a network object.
-These will have an offset of 3 minutes, which means that a netowk object will be inspected every 3 minutes.
+These will have an offset of 3 minutes, which means that a network object will be inspected every 3 minutes.
 
 NetWorkR:
 Manages Workers that can work in the system and do the inspections.
