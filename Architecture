@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" modified="2023-10-06T12:10:21.265Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47" etag="dMK0H_uMK8YkYykn2G3e" version="22.0.3" type="device">
+  <diagram name="Page-1" id="bB6IqzRWOsO1FQcy3PwX">
+    <mxGraphModel dx="1631" dy="2102" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;NetOb&lt;br&gt;&lt;br&gt;Can create new network objects&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="-110" width="120" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-3" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;NetInspectR&lt;br&gt;&lt;br&gt;Cyclic generation of network inspection jobs&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="-110" width="130" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-4" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;NetWorkR&lt;br&gt;&lt;br&gt;Manages workers that can be assigned jobs&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="-110" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-5" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;NetJobR&lt;br&gt;&lt;br&gt;Matches Inspection job with Worker&lt;br&gt;&lt;br&gt;Tracks workflow&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="-110" width="115" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-9" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;NetForm&lt;br&gt;&lt;br&gt;UI for Worker to administrate their work&lt;br&gt;&lt;br&gt;For demo purposes we would use an automatic background service instead of manual input.&lt;br&gt;To distinguish we call it NetCloseR&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="158.25" y="-530" width="406.5" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-10" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="331.5" y="-557.5" width="60" height="685" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-11" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Message Broker&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="265" y="-230" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-12" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;NetReportR&lt;br&gt;&lt;br&gt;UI that shows the different projections we build from the events. Only reads data, never writes. Would probably get notified via SignalR in real app.&lt;br&gt;&lt;br&gt;For demo purpose no UI/SingalRI just API with Get endpoints&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="-540" width="350" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-15" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Database&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="510" y="180" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-17" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-1" target="J5FnZnS4aOBkwMXhglpL-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="-180" as="sourcePoint" />
+            <mxPoint x="440" y="-230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-18" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=15;entryPerimeter=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-3" target="J5FnZnS4aOBkwMXhglpL-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="60" as="sourcePoint" />
+            <mxPoint x="440" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-19" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-5" target="J5FnZnS4aOBkwMXhglpL-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="60" as="sourcePoint" />
+            <mxPoint x="440" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-20" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.557;exitY=1.023;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.855;entryY=0;entryDx=0;entryDy=4.35;entryPerimeter=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-4" target="J5FnZnS4aOBkwMXhglpL-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="60" as="sourcePoint" />
+            <mxPoint x="440" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-21" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=506.25;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-10" target="J5FnZnS4aOBkwMXhglpL-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="-60" as="sourcePoint" />
+            <mxPoint x="440" y="-110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-22" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.976;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-3" target="J5FnZnS4aOBkwMXhglpL-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="-60" as="sourcePoint" />
+            <mxPoint x="440" y="-110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-23" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=178.75;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-10" target="J5FnZnS4aOBkwMXhglpL-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="60" as="sourcePoint" />
+            <mxPoint x="440" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-24" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-5" target="J5FnZnS4aOBkwMXhglpL-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="-180" as="sourcePoint" />
+            <mxPoint x="438" y="-180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-25" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-10" target="J5FnZnS4aOBkwMXhglpL-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="-180" as="sourcePoint" />
+            <mxPoint x="440" y="-230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J5FnZnS4aOBkwMXhglpL-26" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="J5FnZnS4aOBkwMXhglpL-15" target="J5FnZnS4aOBkwMXhglpL-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="60" as="sourcePoint" />
+            <mxPoint x="440" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
