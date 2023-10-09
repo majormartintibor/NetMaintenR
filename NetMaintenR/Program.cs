@@ -1,9 +1,28 @@
+using Marten;
+using Weasel.Core;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddMarten(sp =>
+{
+    StoreOptions options = new();
+
+    options.Connection(builder.Configuration.GetConnectionString("Default")!);
+
+    options.UseDefaultSerialization(EnumStorage.AsInteger);
+
+    if(builder.Environment.IsDevelopment())
+    {
+        options.AutoCreateSchemaObjects = AutoCreate.All;
+    }
+
+    return options;
+}).UseLightweightSessions();
 
 var app = builder.Build();
 

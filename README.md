@@ -16,8 +16,8 @@ following the concept vertical slices.
 
 Feature / Identified Modules
 
-NetOb:
-NetOb api is used to create network objects like poles, transformators, cable sections etc.
+NetObject:
+NetObject api is used to create network objects like poles, transformators, cable sections etc.
 It might seed the database with initial data.
 
 NetInspectR:
