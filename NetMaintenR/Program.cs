@@ -1,4 +1,10 @@
 using Marten;
+using NetMaintenR.NetCloseR;
+using NetMaintenR.NetInspectR;
+using NetMaintenR.NetJobR;
+using NetMaintenR.NetObject;
+using NetMaintenR.NetReportR;
+using NetMaintenR.NetWorkR;
 using Weasel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,3 +40,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapNetCloserEndpoints();
+app.MapNetInspectorEndpoints();
+app.MapNetJobEndpoints();
+app.MapNetObjectEndpoints();
+app.MapNetReporterEndpoints();
+app.MapNetWorkerEndpoints();
