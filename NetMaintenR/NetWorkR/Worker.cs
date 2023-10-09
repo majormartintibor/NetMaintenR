@@ -1,4 +1,4 @@
-﻿namespace NetWorkR.Worker;
+﻿namespace NetMaintenR.NetWorkR;
 
 public record Worker
 {

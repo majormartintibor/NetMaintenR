@@ -1,4 +1,4 @@
-﻿namespace NetJobR.NetworkInspectionAssignment;
+﻿namespace NetMaintenR.NetJobR;
 
 public abstract record NetworkInspectionAssingmentCommand
 {

@@ -1,4 +1,4 @@
-﻿namespace NetInspectR.NetworkInspection;
+﻿namespace NetMaintenR.NetInspectR;
 
 public record NetworkInspection
 {
@@ -8,7 +8,7 @@ public record NetworkInspection
 
     private NetworkInspection() { }
 
-    public record Open() : NetworkInspection;    
+    public record Open() : NetworkInspection;
 
     public record Close() : NetworkInspection;
 }

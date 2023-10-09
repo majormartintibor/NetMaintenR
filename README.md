@@ -7,7 +7,14 @@ Minimal API, A-Frame pattern etc.
 It is also used as a Proof of Concept for working with the so called Critter Stack,
 mainly utilizing the Wolverine and Marten libraries.
 
-Projects
+Evolutionary Architecture:
+I will try to also show the concept of Evolutionary Architecture.
+1.: The first prototype Milestone will only use 1 Web API project with code organized in Feature Folders
+following the concept vertical slices.
+2.: The second stage might introduce multiple projects and Wolverine's in process message bus as a Mediator tool
+3.: The third stage will aim for a microservice architecture using Wolverine in conjuction with RabbitMQ
+
+Feature / Identified Modules
 
 NetOb:
 NetOb api is used to create network objects like poles, transformators, cable sections etc.
@@ -39,7 +46,7 @@ built from the evetns streams. Later on a simple UI could be built maybe with so
 using SignalR.
 
 Technical scope:
-We plan to keep this as a modular monolith for a long time using a message bus to communicate between modules.
+I plan to keep this as a modular monolith for a long time using a message bus to communicate between modules.
 TBD: in process or out of process messaging?
 No aothorization/authentication
 No secrest etc, appsettings it is
@@ -55,4 +62,4 @@ Cyclic network inspection job
 Possible business scope extensions:
 A finished network inspection job should trigger maintenance jobs that need to be assigned to specific workers again
 and will have their own form.
-The cost for doing an inspection or maintanance job should be saved so we can also do financionaly reports.
+The cost for doing an inspection or maintanance job should be saved so I can also do financionaly reports.
