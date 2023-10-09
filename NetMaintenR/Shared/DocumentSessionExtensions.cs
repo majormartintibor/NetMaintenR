@@ -4,6 +4,17 @@ namespace NetMaintenR.Shared;
 
 public static class DocumentSessionExtensions
 {
+    public static async Task<TEntity> Get<TEntity>(
+        this IDocumentSession session,
+        Guid id,
+        CancellationToken cancellationToken = default
+    ) where TEntity : class
+    {
+        var entity = await session.Events.AggregateStreamAsync<TEntity>(id, token: cancellationToken);
+
+        return entity ?? throw new InvalidOperationException($"Entity with id {id} was not found");
+    }
+
     public static Task Decide<TEntity, TCommand, TEvent>(
         this IDocumentSession session,
         Func<TCommand, TEntity, TEvent[]> decide,

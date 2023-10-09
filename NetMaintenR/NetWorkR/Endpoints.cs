@@ -4,10 +4,6 @@ public static class Endpoints
 {
     public static void MapNetWorkerEndpoints(this WebApplication app)
     {
-        var netObject = app.MapGroup("/netWorker").WithOpenApi();
-
-        netObject.MapPost(
-            "/",
-            null).WithDisplayName("CreateNew");
+        //var netObject = app.MapGroup("/netWorker").WithOpenApi();
     }
 }

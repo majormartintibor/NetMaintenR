@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  netmaintenr:
+    image: ${DOCKER_REGISTRY-}netmaintenr
+    build:
+      context: .
+      dockerfile: NetMaintenR/Dockerfile
+    depends_on:
+      - netObject-db
+
+  netObject-db:
+    image: postgres:latest
+    container_name: NetObjectDb
+    environment:
+      - POSTGRES_DB=NetObject
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432  

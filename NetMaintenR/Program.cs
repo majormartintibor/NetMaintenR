@@ -32,6 +32,13 @@ builder.Services.AddMarten(sp =>
 
 var app = builder.Build();
 
+app.MapNetCloserEndpoints();
+app.MapNetInspectorEndpoints();
+app.MapNetJobEndpoints();
+app.MapNetObjectEndpoints();
+app.MapNetReporterEndpoints();
+app.MapNetWorkerEndpoints();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -41,9 +48,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapNetCloserEndpoints();
-app.MapNetInspectorEndpoints();
-app.MapNetJobEndpoints();
-app.MapNetObjectEndpoints();
-app.MapNetReporterEndpoints();
-app.MapNetWorkerEndpoints();
+app.Run();
