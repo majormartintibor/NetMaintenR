@@ -1,6 +1,5 @@
 ﻿using Marten;
 using Microsoft.AspNetCore.Http.HttpResults;
-using NetMaintenR.Shared;
 using static NetMaintenR.NetObject.NetworkObjectCommand;
 namespace NetMaintenR.NetObject;
 
@@ -20,7 +19,7 @@ public static class Endpoints
                 {
                     var id = Guid.NewGuid();
 
-                    await session.Decide(id, new CreatePole(), CancellationToken.None);
+                    await session.Decide(id, new CreatePole(id), CancellationToken.None);
                     return TypedResults.Ok(id);
                 }
                 catch(Exception ex)
@@ -39,7 +38,7 @@ public static class Endpoints
                 {
                     var id = Guid.NewGuid();
 
-                    await session.Decide(id, new CreateSection(), CancellationToken.None);
+                    await session.Decide(id, new CreateSection(id), CancellationToken.None);
                     return TypedResults.Ok(id);
                 }
                 catch(Exception ex)
@@ -126,13 +125,15 @@ public static class Endpoints
 
         netObject.MapGet(
             "/",
-            async Task<Results<Ok<IReadOnlyList<NetworkObject>>, BadRequest>> (
-                IDocumentSession session
+            async Task<Results<Ok<IReadOnlyList<NetworkObjectInspectionDateDetails>>, BadRequest>> (
+                IQuerySession querySession
                 ) =>
             {
                 try
                 {
-                    var networkObjects = await session.Query<NetworkObject>().ToListAsync();
+                    var networkObjects = await querySession
+                        .Query<NetworkObjectInspectionDateDetails>()
+                        .ToListAsync(CancellationToken.None);
                     return TypedResults.Ok(networkObjects);
                 }
                 catch
@@ -140,17 +141,19 @@ public static class Endpoints
                     return TypedResults.BadRequest();
                 }               
             });
-
-        netObject.MapGet( //152cf5bb-bfbf-4cc4-b184-9d818683dfc9
+        
+        netObject.MapGet(
             "/{id}",
-            async Task<Results<Ok<NetworkObject>, BadRequest>> (
+            async Task<Results<Ok<NetworkObjectInspectionDateDetails>, BadRequest>> (
                 Guid id,
-                IDocumentSession session
+                IQuerySession querySession
                 ) =>
             {
                 try
                 {
-                    var networkObject = await session.Get<NetworkObject>(id, CancellationToken.None);
+                    var networkObject = await querySession
+                        .Query<NetworkObjectInspectionDateDetails>()
+                        .FirstAsync(n => n.Id == id);
                     return TypedResults.Ok(networkObject);
                 }
                 catch

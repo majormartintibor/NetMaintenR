@@ -22,10 +22,10 @@ public static class NetworkObjectService
             };
 
     public static PoleCreated Handle(CreatePole command)
-        => new();
+        => new(command.Id);
 
     public static SectionCreated Handle(CreateSection command)
-        => new();
+        => new(command.Id);
 
     public static LastMinorInspectionUpdated Handle(UpdateLastMinorInspection command, NetworkObject networkObject)
         => new(command.InspectionTime);
@@ -47,9 +47,9 @@ public static class NetworkObjectService
 
 public abstract record NetworkObjectCommand
 {
-    public record CreatePole() : NetworkObjectCommand;
+    public record CreatePole(Guid Id) : NetworkObjectCommand;
 
-    public record CreateSection() : NetworkObjectCommand;
+    public record CreateSection(Guid Id) : NetworkObjectCommand;
 
     public record UpdateLastMinorInspection(DateTimeOffset InspectionTime) : NetworkObjectCommand;
 

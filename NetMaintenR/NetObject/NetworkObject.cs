@@ -8,10 +8,10 @@ public record NetworkObject
     public NetworkObject Apply(NetworkObjectEvent @event) =>
         @event switch
         {
-            PoleCreated
+            PoleCreated(var id)
                 => new Pole(Array.Empty<Component>()),
 
-            SectionCreated
+            SectionCreated(var id)
                 => new Section(),
 
             LastMinorInspectionUpdated(var inspectionTime)
@@ -64,9 +64,9 @@ public record Component(Guid ComponentId, string Name);
 
 public abstract record NetworkObjectEvent
 {
-    public record PoleCreated() : NetworkObjectEvent;
+    public record PoleCreated(Guid Id) : NetworkObjectEvent;
 
-    public record SectionCreated() : NetworkObjectEvent;
+    public record SectionCreated(Guid Id) : NetworkObjectEvent;
 
     public record LastMinorInspectionUpdated(DateTimeOffset InspectionTime) : NetworkObjectEvent;
 

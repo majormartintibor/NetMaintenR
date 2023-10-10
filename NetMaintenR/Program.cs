@@ -27,6 +27,8 @@ builder.Services.AddMarten(sp =>
         options.AutoCreateSchemaObjects = AutoCreate.All;
     }
 
+    options.AddNetworkObjectProjections();
+
     return options;
 }).UseLightweightSessions();
 
