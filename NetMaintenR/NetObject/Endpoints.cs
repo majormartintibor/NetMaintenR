@@ -1,5 +1,6 @@
 ﻿using Marten;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Collections.ObjectModel;
 using static NetMaintenR.NetObject.NetworkObjectCommand;
 namespace NetMaintenR.NetObject;
 
@@ -160,6 +161,26 @@ public static class Endpoints
                 {
                     return TypedResults.BadRequest();
                 }                
+            });
+
+        netObject.MapGet(
+            "/PoleDetails",
+            async Task<Results<Ok<IReadOnlyList<PoleDetails>>, BadRequest<string>>> (
+                IQuerySession querySession
+                ) =>
+            {
+                try
+                {
+                    var networkObjects = await querySession
+                        .Query<PoleDetails>()                        
+                        .ToListAsync(CancellationToken.None);                    
+
+                    return TypedResults.Ok(networkObjects);
+                }
+                catch(Exception ex)
+                {
+                    return TypedResults.BadRequest(ex.Message);
+                }
             });
     }
 }
