@@ -1,4 +1,5 @@
-﻿using JasperFx.Core;
+﻿using JasperFx.CodeGeneration.Frames;
+using JasperFx.Core;
 using Marten;
 using Marten.Events.Aggregation;
 using Marten.Events.Projections;
@@ -63,17 +64,13 @@ public record PoleDetails(
     Guid Id,
     DateTimeOffset LastMinorInspection,
     DateTimeOffset LastMajorInspection,
-    Component[] Components
-    //,string testField
-    )
+    Component[] Components)
 {
     public PoleDetails() 
         : this(Guid.Empty, 
               DateTimeOffset.MinValue, 
               DateTimeOffset.MinValue, 
-              Array.Empty<Component>()
-              //,string.Empty
-              )
+              Array.Empty<Component>())
     {        
     }
 }
@@ -90,9 +87,7 @@ public class PoleDetailsProjection
                     id, 
                     DateTimeOffset.MinValue, 
                     DateTimeOffset.MinValue, 
-                    Array.Empty<Component>()
-                    //,"It works!"
-                    ),
+                    Array.Empty<Component>()),
 
             LastMinorInspectionUpdated(var inspectionTime)
                 => current with { LastMinorInspection = inspectionTime },
@@ -122,16 +117,12 @@ public class PoleDetailsProjection
 public record SectionDetails(
     Guid Id,
     DateTimeOffset LastMinorInspection,
-    DateTimeOffset LastMajorInspection
-    //,string testField
-    )
+    DateTimeOffset LastMajorInspection)
 {
     public SectionDetails() 
         : this(Guid.Empty, 
               DateTimeOffset.MinValue, 
-              DateTimeOffset.MinValue
-              //,string.Empty
-              )
+              DateTimeOffset.MinValue)
     {        
     }
 }
@@ -147,9 +138,7 @@ public class SectionDetailsProjection
                 => new SectionDetails(
                     id, 
                     DateTimeOffset.MinValue, 
-                    DateTimeOffset.MinValue
-                    //,"It works!"
-                    ),
+                    DateTimeOffset.MinValue),
 
             LastMinorInspectionUpdated(var inspectionTime)
                 => current with { LastMinorInspection = inspectionTime },
@@ -161,13 +150,68 @@ public class SectionDetailsProjection
         };
 }
 
+public record SampleLive(
+    Guid Id,
+    DateTimeOffset LastMinorInspection,
+    DateTimeOffset LastMajorInspection
+    , string SampleLiveProjectionExtension
+    )
+{
+    public SampleLive() 
+        : this(Guid.Empty,
+              DateTimeOffset.MinValue,
+              DateTimeOffset.MinValue
+              ,string.Empty
+              )
+    {
+        
+    }
+
+    public SampleLive Apply(NetworkObjectEvent @event) =>
+        @event switch
+        {
+            PoleCreated(var id)
+                => new SampleLive(
+                    id,
+                    DateTimeOffset.MinValue,
+                    DateTimeOffset.MinValue
+                    , "Hey it works!"
+                    ),
+
+            SectionCreated(var id)
+                => new SampleLive(
+                    id,
+                    DateTimeOffset.MinValue,
+                    DateTimeOffset.MinValue
+                    , "Hey it works!"
+                    ),
+
+            LastMinorInspectionUpdated(var inspectionTime)
+                => this with { LastMinorInspection = inspectionTime },
+
+            LastMajorInspectionUpdated(var inspectionTime)
+                => this with { LastMajorInspection = inspectionTime },
+
+            _ => this
+        };
+}
+
+public class SampleLiveProjection
+    : SingleStreamProjection<SampleLive>
+{
+    public SampleLive Apply(
+        NetworkObjectEvent @event, SampleLive current) =>
+            current.Apply(@event);
+}
+
 public static class NetworkObjectStoreOptionsExtension
 {
     public static void AddNetworkObjectProjections(this StoreOptions options)
     {
-        //options.Projections.LiveStreamAggregation<NetworkObject>();
-        options.Projections.Add<NetworkObjectInspectionDateDetailsProjection>(ProjectionLifecycle.Live);
-        options.Projections.Add<PoleDetailsProjection>(ProjectionLifecycle.Live);
-        options.Projections.Add<SectionDetailsProjection>(ProjectionLifecycle.Live);
+        options.Projections.LiveStreamAggregation<NetworkObject>();
+        options.Projections.Add<NetworkObjectInspectionDateDetailsProjection>(ProjectionLifecycle.Inline);
+        options.Projections.Add<PoleDetailsProjection>(ProjectionLifecycle.Inline);
+        options.Projections.Add<SectionDetailsProjection>(ProjectionLifecycle.Inline);       
+        options.Projections.Add<SampleLiveProjection>(ProjectionLifecycle.Inline);
     }
 }
