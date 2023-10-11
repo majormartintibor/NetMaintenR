@@ -133,7 +133,8 @@ public static class Endpoints
                 {
                     var networkObjects = await querySession
                         .Query<NetworkObjectInspectionDateDetails>()
-                        .ToListAsync(CancellationToken.None);
+                        .ToListAsync(CancellationToken.None);                        
+
                     return TypedResults.Ok(networkObjects);
                 }
                 catch
@@ -144,21 +145,26 @@ public static class Endpoints
         
         netObject.MapGet(
             "/{id}",
-            async Task<Results<Ok<NetworkObjectInspectionDateDetails>, BadRequest>> (
+            async Task<Results<Ok<NetworkObjectInspectionDateDetails>, BadRequest<string>>> (
                 Guid id,
                 IQuerySession querySession
                 ) =>
             {
                 try
                 {
+                    //var networkObject = await querySession
+                    //    .Query<NetworkObjectInspectionDateDetails>()
+                    //    .FirstAsync(n => n.Id == id);
+
                     var networkObject = await querySession
-                        .Query<NetworkObjectInspectionDateDetails>()
-                        .FirstAsync(n => n.Id == id);
+                       .Events
+                       .AggregateStreamAsync<NetworkObjectInspectionDateDetails>(id);
+
                     return TypedResults.Ok(networkObject);
                 }
-                catch
+                catch(Exception ex)
                 {
-                    return TypedResults.BadRequest();
+                    return TypedResults.BadRequest(ex.Message);
                 }                
             });
 
@@ -177,6 +183,68 @@ public static class Endpoints
                     return TypedResults.Ok(networkObjects);
                 }
                 catch(Exception ex)
+                {
+                    return TypedResults.BadRequest(ex.Message);
+                }
+            });
+
+        netObject.MapGet(
+            "/PoleDetails/{id}",
+            async Task<Results<Ok<PoleDetails>, BadRequest<string>>> (
+                Guid id,
+                IQuerySession querySession
+                ) =>
+            {
+                try
+                {
+                    var networkObjects = await querySession
+                        .Events
+                        .AggregateStreamAsync<PoleDetails>(id);
+
+                    return TypedResults.Ok(networkObjects);
+                }
+                catch (Exception ex)
+                {
+                    return TypedResults.BadRequest(ex.Message);
+                }
+            });
+
+        netObject.MapGet(
+            "/SectionDetails",
+            async Task<Results<Ok<IReadOnlyList<SectionDetails>>, BadRequest<string>>> (
+                IQuerySession querySession
+                ) =>
+            {
+                try
+                {
+                    var networkObjects = await querySession
+                        .Query<SectionDetails>()
+                        .ToListAsync(CancellationToken.None);
+
+                    return TypedResults.Ok(networkObjects);
+                }
+                catch (Exception ex)
+                {
+                    return TypedResults.BadRequest(ex.Message);
+                }
+            });
+
+        netObject.MapGet(
+            "/SectionDetails/{id}",
+            async Task<Results<Ok<SectionDetails>, BadRequest<string>>> (
+                Guid id,
+                IQuerySession querySession
+                ) =>
+            {
+                try
+                {
+                    var networkObjects = await querySession
+                        .Events
+                        .AggregateStreamAsync<SectionDetails>(id);
+
+                    return TypedResults.Ok(networkObjects);
+                }
+                catch (Exception ex)
                 {
                     return TypedResults.BadRequest(ex.Message);
                 }

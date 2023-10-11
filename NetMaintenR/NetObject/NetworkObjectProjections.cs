@@ -9,15 +9,23 @@ namespace NetMaintenR.NetObject;
 public record NetworkObjectInspectionDateDetails(
     Guid Id,    
     DateTimeOffset LastMinorInspection,
-    DateTimeOffset LastMajorInspection)
+    DateTimeOffset LastMajorInspection,
+    NetworkObjectType NetworkObjectType)
 {
     public NetworkObjectInspectionDateDetails() 
         : this(Guid.Empty, 
               DateTimeOffset.MinValue, 
-              DateTimeOffset.MinValue)
+              DateTimeOffset.MinValue,
+              NetworkObjectType.Undefined)
     {        
     }
 };
+public enum NetworkObjectType
+{
+    Undefined,
+    Pole,
+    Section
+}
 
 public class NetworkObjectInspectionDateDetailsProjection 
     : SingleStreamProjection<NetworkObjectInspectionDateDetails>
@@ -28,11 +36,17 @@ public class NetworkObjectInspectionDateDetailsProjection
         {
             PoleCreated(var id)
                 => new NetworkObjectInspectionDateDetails(
-                    id, DateTimeOffset.MinValue, DateTimeOffset.MinValue),
+                    id, 
+                    DateTimeOffset.MinValue, 
+                    DateTimeOffset.MinValue,
+                    NetworkObjectType.Pole),
 
             SectionCreated(var id)
                 => new NetworkObjectInspectionDateDetails(
-                    id, DateTimeOffset.MinValue, DateTimeOffset.MinValue),
+                    id, 
+                    DateTimeOffset.MinValue, 
+                    DateTimeOffset.MinValue,
+                    NetworkObjectType.Section),
 
             LastMinorInspectionUpdated(var inspectionTime)
                 => current with { LastMinorInspection = inspectionTime },
@@ -49,18 +63,21 @@ public record PoleDetails(
     Guid Id,
     DateTimeOffset LastMinorInspection,
     DateTimeOffset LastMajorInspection,
-    Component[] Components)
+    Component[] Components
+    //,string testField
+    )
 {
     public PoleDetails() 
         : this(Guid.Empty, 
               DateTimeOffset.MinValue, 
               DateTimeOffset.MinValue, 
-              Array.Empty<Component>())
+              Array.Empty<Component>()
+              //,string.Empty
+              )
     {        
     }
 }
 
-//How to make this projection only for NetworkObjects that are Pole?
 public class PoleDetailsProjection 
     : SingleStreamProjection<PoleDetails>
 {
@@ -70,7 +87,12 @@ public class PoleDetailsProjection
         {
             PoleCreated(var id)
                 => new PoleDetails(
-                    id, DateTimeOffset.MinValue, DateTimeOffset.MinValue, Array.Empty<Component>()),
+                    id, 
+                    DateTimeOffset.MinValue, 
+                    DateTimeOffset.MinValue, 
+                    Array.Empty<Component>()
+                    //,"It works!"
+                    ),
 
             LastMinorInspectionUpdated(var inspectionTime)
                 => current with { LastMinorInspection = inspectionTime },
@@ -97,11 +119,55 @@ public class PoleDetailsProjection
         };
 }
 
+public record SectionDetails(
+    Guid Id,
+    DateTimeOffset LastMinorInspection,
+    DateTimeOffset LastMajorInspection
+    //,string testField
+    )
+{
+    public SectionDetails() 
+        : this(Guid.Empty, 
+              DateTimeOffset.MinValue, 
+              DateTimeOffset.MinValue
+              //,string.Empty
+              )
+    {        
+    }
+}
+
+public class SectionDetailsProjection
+    : SingleStreamProjection<SectionDetails>
+{
+    public SectionDetails? Apply(
+        NetworkObjectEvent @event, SectionDetails current) =>
+        @event switch
+        {
+            SectionCreated(var id)
+                => new SectionDetails(
+                    id, 
+                    DateTimeOffset.MinValue, 
+                    DateTimeOffset.MinValue
+                    //,"It works!"
+                    ),
+
+            LastMinorInspectionUpdated(var inspectionTime)
+                => current with { LastMinorInspection = inspectionTime },
+
+            LastMajorInspectionUpdated(var inspectionTime)
+                => current with { LastMajorInspection = inspectionTime },            
+
+            _ => null
+        };
+}
+
 public static class NetworkObjectStoreOptionsExtension
 {
     public static void AddNetworkObjectProjections(this StoreOptions options)
     {
-        options.Projections.Add<NetworkObjectInspectionDateDetailsProjection>(ProjectionLifecycle.Inline);
-        options.Projections.Add<PoleDetailsProjection>(ProjectionLifecycle.Inline);
+        //options.Projections.LiveStreamAggregation<NetworkObject>();
+        options.Projections.Add<NetworkObjectInspectionDateDetailsProjection>(ProjectionLifecycle.Live);
+        options.Projections.Add<PoleDetailsProjection>(ProjectionLifecycle.Live);
+        options.Projections.Add<SectionDetailsProjection>(ProjectionLifecycle.Live);
     }
 }

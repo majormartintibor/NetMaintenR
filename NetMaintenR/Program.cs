@@ -30,7 +30,10 @@ builder.Services.AddMarten(sp =>
     options.AddNetworkObjectProjections();
 
     return options;
-}).UseLightweightSessions();
+})
+    .UseLightweightSessions()
+    //.AddAsyncDaemon(Marten.Events.Daemon.Resiliency.DaemonMode.Solo)
+    ;
 
 var app = builder.Build();
 
