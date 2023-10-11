@@ -248,47 +248,6 @@ public static class Endpoints
                 {
                     return TypedResults.BadRequest(ex.Message);
                 }
-            });
-
-        netObject.MapGet(
-            "/SampleLive",
-            async Task<Results<Ok<IReadOnlyList<SampleLive>>, BadRequest<string>>> (
-                IQuerySession querySession
-                ) =>
-            {
-                try
-                {
-                    var networkObjects = await querySession
-                        .Query<SampleLive>()
-                        .ToListAsync(CancellationToken.None);
-
-                    return TypedResults.Ok(networkObjects);
-                }
-                catch (Exception ex)
-                {
-                    return TypedResults.BadRequest(ex.Message);
-                }
-            });
-
-        netObject.MapGet(
-            "/SampleLive/{id}",
-            async Task<Results<Ok<SampleLive>, BadRequest<string>>> (
-                Guid id,
-                IQuerySession querySession
-                ) =>
-            {
-                try
-                {
-                    var networkObjects = await querySession
-                        .Events
-                        .AggregateStreamAsync<SampleLive>(id);
-
-                    return TypedResults.Ok(networkObjects);
-                }
-                catch (Exception ex)
-                {
-                    return TypedResults.BadRequest(ex.Message);
-                }
-            });
+            });        
     }
 }
