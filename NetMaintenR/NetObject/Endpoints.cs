@@ -152,13 +152,9 @@ public static class Endpoints
             {
                 try
                 {
-                    //var networkObject = await querySession
-                    //    .Query<NetworkObjectInspectionDateDetails>()
-                    //    .FirstAsync(n => n.Id == id);
-
                     var networkObject = await querySession
-                       .Events
-                       .AggregateStreamAsync<NetworkObjectInspectionDateDetails>(id);
+                        .Query<NetworkObjectInspectionDateDetails>()
+                        .SingleAsync(n => n.Id == id);
 
                     return TypedResults.Ok(networkObject);
                 }
@@ -198,8 +194,8 @@ public static class Endpoints
                 try
                 {
                     var networkObjects = await querySession
-                        .Events
-                        .AggregateStreamAsync<PoleDetails>(id);
+                        .Query<PoleDetails>()
+                        .SingleAsync(d => d.Id == id);
 
                     return TypedResults.Ok(networkObjects);
                 }
@@ -239,8 +235,8 @@ public static class Endpoints
                 try
                 {
                     var networkObjects = await querySession
-                        .Events
-                        .AggregateStreamAsync<SectionDetails>(id);
+                        .Query<SectionDetails>()
+                        .SingleAsync(d => d.Id == id);
 
                     return TypedResults.Ok(networkObjects);
                 }

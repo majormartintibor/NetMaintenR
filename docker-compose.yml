@@ -19,4 +19,14 @@ services:
     volumes:
       - ./.containers/database:/var/lib/postgresql/data
     ports:
-      - 5432:5432  
+      - 5432:5432
+
+  netObject-test-db:
+    image: postgres:latest
+    container_name: NetObjectTestDb
+    environment:
+      - POSTGRES_DB=NetObjectTest
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5433:5432
